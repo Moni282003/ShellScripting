@@ -31,15 +31,15 @@ def add_task():
     tasks.append({"task": task_name, "due_date": due_date, "completed": False})
     save_tasks(tasks)
     
-    print(f"✅ Task Added: {task_name}")
+    print(f"Task Added: {task_name}")
     
     send_email(TO_EMAIL, "New Task Added", f"A new task has been added:\n\nTask: {task_name}\nDue Date: {due_date}")
 
 def list_tasks():
     tasks = load_tasks()
-    print("\n📌 Your To-Do List:")
+    print("\n Your To-Do List:")
     for i, task in enumerate(tasks, 1):
-        status = "✅" if task["completed"] else "❌"
+        status = "" if task["completed"] else ""
         print(f"{i}. {task['task']} - Due: {task['due_date']} [{status}]")
 
 def complete_task():
@@ -49,7 +49,7 @@ def complete_task():
     tasks[task_num]["completed"] = True
     save_tasks(tasks)
     
-    print(f"✅ Task Completed: {tasks[task_num]['task']}")
+    print(f"Task Completed: {tasks[task_num]['task']}")
 
 def remove_task():
     list_tasks()
@@ -58,7 +58,7 @@ def remove_task():
     removed_task = tasks.pop(task_num)
     save_tasks(tasks)
     
-    print(f"❌ Task Removed: {removed_task['task']}")
+    print(f"Task Removed: {removed_task['task']}")
     
     send_email(TO_EMAIL, "Task Removed", f"The task '{removed_task['task']}' has been removed.")
 
@@ -68,7 +68,7 @@ def check_due_tasks():
 
     for task in tasks:
         if task["due_date"] == now and not task["completed"]:
-            print(f"🔔 Task Reminder: {task['task']}")
+            print(f"Task Reminder: {task['task']}")
             send_email(TO_EMAIL, "Task Reminder", f"Reminder: '{task['task']}' is due now!")
 
 def check_due_tasks_at_2_15():
@@ -79,7 +79,7 @@ def check_due_tasks_at_2_15():
 
     if due_tasks:
         task_list = "\n".join([task["task"] for task in due_tasks])
-        print(f"🔔 Daily Task Reminder:\n{task_list}")
+        print(f"Daily Task Reminder:\n{task_list}")
         send_email(TO_EMAIL, "Daily Task Reminder", f"The following tasks are due today:\n\n{task_list}")
 
 def send_email(to_email, subject, body):
@@ -94,9 +94,9 @@ def send_email(to_email, subject, body):
             server.login(EMAIL, PASSWORD)
             server.send_message(msg)
 
-        print("📧 Email Sent!")
+        print("Email Sent!")
     except Exception as e:
-        print(f"❌ Email Error: {e}")
+        print(f"Email Error: {e}")
 
 schedule.every().minute.do(check_due_tasks)  
 schedule.every().day.at("14:15").do(check_due_tasks_at_2_15) 
@@ -104,11 +104,11 @@ schedule.every().day.at("14:15").do(check_due_tasks_at_2_15)
 def main():
     while True:
         print("\n📝 To-Do List CLI")
-        print("1️⃣ Add Task")
-        print("2️⃣ List Tasks")
-        print("3️⃣ Complete Task")
-        print("4️⃣ Remove Task")
-        print("5️⃣ Exit")
+        print("Add Task")
+        print("List Tasks")
+        print("Complete Task")
+        print("Remove Task")
+        print("Exit")
 
         choice = prompt("\nEnter your choice: ")
 
@@ -121,10 +121,10 @@ def main():
         elif choice == "4":
             remove_task()
         elif choice == "5":
-            print("👋 Exiting To-Do List CLI...")
+            print("Exiting To-Do List CLI...")
             break
         else:
-            print("❌ Invalid choice. Please try again.")
+            print("Invalid choice. Please try again.")
 
         # Run scheduled tasks
         schedule.run_pending()

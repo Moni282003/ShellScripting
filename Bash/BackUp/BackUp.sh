@@ -7,7 +7,7 @@ LOG_FILE="backup.log"
 # Ensure the backup and log files exist
 touch "$BACKUP_FILE" "$LOG_FILE"
 
-echo "🔄 Monitoring changes in '$SOURCE_FILE'... Press Ctrl+C to stop."
+echo "Monitoring changes in '$SOURCE_FILE'... Press Ctrl+C to stop."
 
 # Infinite loop to check for changes
 while true; do
@@ -18,5 +18,5 @@ while true; do
     cp "$SOURCE_FILE" "$BACKUP_FILE"
     
     # Log only when changes occur
-    echo "$(date): ✅ Backup updated." >> "$LOG_FILE"
+    echo "$(date): Backup updated." >> "$LOG_FILE"
 done

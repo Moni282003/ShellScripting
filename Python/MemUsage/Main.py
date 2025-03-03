@@ -57,7 +57,7 @@ with Live(console=console, refresh_per_second=1) as live:
         console.clear()
         console.print(table)
         
-        console.print(render_progress_bar("🟢 RAM Usage", mem_usage, "green"))
-        console.print(render_progress_bar("🔴 CPU Usage", cpu_usage, "red"))
+        console.print(render_progress_bar("RAM Usage", mem_usage, "green"))
+        console.print(render_progress_bar("CPU Usage", cpu_usage, "red"))
 
         time.sleep(1)
